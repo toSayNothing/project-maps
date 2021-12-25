@@ -2,7 +2,9 @@
   "name": "project-maps",
   "version": "1.0.0",
   "description": "visualize your project",
-  "bin": "dist/mapcli.js",
+  "bin": {
+    "project-maps": "./bin/project-maps.js"
+  },
   "files": [
     "dist/"
   ],
@@ -13,12 +15,14 @@
   "chart": "dist/chart.js",
   "targets": {
     "mapcli": {
+      "sourceMap": false,
       "source": "src/main.ts",
       "engines": {
         "node": ">= 12"
       }
     },
     "chart": {
+      "sourceMap": false,
       "source": "src/chart.ts",
       "engines": {
         "browsers": "> 0.5%, last 2 versions, not dead"
@@ -26,9 +30,9 @@
     }
   },
   "scripts": {
-    "build": "parcel build",
-    "build:mapcli": "parcel build --target mapcli",
-    "build:chart": "parcel build --target chart"
+    "build": "parcel build --no-cache",
+    "build:mapcli": "parcel build --target mapcli --no-cache",
+    "build:chart": "parcel build --target chart --no-cache"
   },
   "repository": {
     "type": "git",
@@ -46,10 +50,6 @@
   },
   "homepage": "https://github.com/toSayNothing/project-maps#readme",
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "@babel/preset-typescript": "^7.16.5",
     "@parcel/packager-ts": "^2.0.1",
     "@parcel/transformer-typescript-types": "^2.0.1",
     "@types/node": "^17.0.4",
@@ -57,14 +57,10 @@
     "typescript": ">=3.0.0"
   },
   "dependencies": {
-    "@antv/x6": "^1.29.1",
     "cac": "^6.7.12",
+    "chalk": "^5.0.0",
     "echarts": "^5.2.2",
     "filesize": "^8.0.6",
     "vscode-icons-js": "^11.6.1"
-  },
-  "staticFiles": {
-    "staticOutPath": "static",
-    "staticPath": "src/static"
   }
 }

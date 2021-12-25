@@ -83,13 +83,14 @@ const transformedData: ChartDataItem = {
 console.log("from-chart", process.env.NODE_ENV);
 console.log("from-chart", __filename);
 console.log("from-chart", __dirname);
-console.log("from-chart","production");
-console.log("from-chart","src/chart.ts");
-console.log("from-chart","src");
+console.log("from-chart", "production");
+console.log("from-chart", "src/chart.ts");
+console.log("from-chart", "src");
 
-const getSvgUrl = (svgName:string) => {
+const getSvgUrl = (svgName: string) => {
   // image://./static/icons/
-}
+  return "image://../src/static/icons/" + svgName;
+};
 
 const option: EChartsOption = {
   tooltip: {
@@ -120,7 +121,8 @@ const option: EChartsOption = {
         if (!params.data.name) {
           // 这种情况只有两个 ,一个是root,一个是root的父
           // console.log("val", val, params);
-          return "image://./static/icons/" + "default_file.svg";
+          // return "image://./static/icons/" + "default_file.svg";
+          return getSvgUrl("default_file.svg");
         } else if (params.data.children) {
           // console.log("isFolder", params);
           // getIconForFolder
@@ -140,9 +142,11 @@ const option: EChartsOption = {
           //   ? getIconForFolder(params.data.name)
           //   : getIconForOpenFolder(params.data.name);
           // const folderSvg = getIconForFolder(params.data.name);
-          return "image://./static/icons/" + "default_folder.svg";
+          // return "image://./static/icons/" + "default_folder.svg";
+          return getSvgUrl("default_folder.svg");
         } else {
-          return "image://./static/icons/" + getIconForFile(params.data.name);
+          // return "image://./static/icons/" + getIconForFile(params.data.name);
+          return getSvgUrl(getIconForFile(params.data.name) ?? "");
         }
         // file_type_cpp.svg
         // params.data.name
