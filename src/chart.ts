@@ -92,7 +92,7 @@ const transformedData: ChartDataItem = {
 
 const getSvgUrl = (svgName: string) => {
   // return "image://./../src/static/icons/" + svgName;
-  return "image://./node_modules/project-maps/src/static/icons/" + svgName;
+  return "image://./node_modules/project-maps/dist/static/icons/" + svgName;
 };
 
 const option: EChartsOption = {
