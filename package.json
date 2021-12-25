@@ -32,7 +32,8 @@
   "scripts": {
     "build": "parcel build --no-cache",
     "build:mapcli": "parcel build --target mapcli --no-cache",
-    "build:chart": "parcel build --target chart --no-cache"
+    "build:chart": "parcel build --target chart --no-cache",
+    "watch": "parcel watch"
   },
   "repository": {
     "type": "git",
@@ -58,7 +59,6 @@
   },
   "dependencies": {
     "cac": "^6.7.12",
-    "chalk": "^5.0.0",
     "echarts": "^5.2.2",
     "filesize": "^8.0.6",
     "vscode-icons-js": "^11.6.1"

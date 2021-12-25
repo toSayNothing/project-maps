@@ -11,6 +11,7 @@ import {
 } from "vscode-icons-js";
 import { WINDOW_TREE_KEY } from "./constants";
 import { TreeDataItem } from "./initConfig";
+import { resolve } from "path/posix";
 
 export interface ChartDataItem {
   name: string;
@@ -80,20 +81,18 @@ const transformedData: ChartDataItem = {
 
 // myChart.showLoading();
 // myChart.hideLoading();
-console.log("from-chart", process.env.NODE_ENV);
-console.log("from-chart", __filename);
-console.log("from-chart", __dirname);
-console.log("from-chart", "production");
-console.log("from-chart", "src/chart.ts");
-console.log("from-chart", "src");
+// console.log("from-chart", process.env.NODE_ENV);
+// console.log("from-chart", process.env);
+
+// console.log("from-chart", __filename);
+// console.log("from-chart", __dirname);
+// console.log("from-chart", "production");
+// console.log("from-chart", "src/chart.ts");
+// console.log("from-chart", "src");
 
 const getSvgUrl = (svgName: string) => {
-  // image://./static/icons/
-  const aa = __dirname;
-  const bb = __filename;
-  console.log("aa", aa);
-  console.log("bb", bb);
-  return "image://../src/static/icons/" + svgName;
+  // return "image://./../src/static/icons/" + svgName;
+  return "image://./node_modules/project-maps/src/static/icons/" + svgName;
 };
 
 const option: EChartsOption = {

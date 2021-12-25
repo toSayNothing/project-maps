@@ -8,7 +8,6 @@ const cli = cac("project-maps");
 
 // 1. init config
 cli.command("init").action(async () => {
-  console.log("call-init", process.cwd());
   try {
     await outputDefaultConfig(process.cwd());
   } catch (error) {
@@ -18,7 +17,6 @@ cli.command("init").action(async () => {
 
 //2. tree
 cli.command("tree").action(async () => {
-  console.log("call-tree");
   try {
     await getUserFolderMaps(process.cwd());
   } catch (error) {
@@ -28,7 +26,6 @@ cli.command("tree").action(async () => {
 
 // 3. generate html
 cli.command("generate").action(async () => {
-  console.log("call-generate");
   try {
     await generateHtml(process.cwd());
   } catch (error) {
@@ -37,8 +34,7 @@ cli.command("generate").action(async () => {
 });
 
 // all in one
-cli.command("map").action(async () => {
-  console.log("call-map");
+cli.command("flow").action(async () => {
   const workPath = process.cwd();
   try {
     await outputDefaultConfig(workPath);

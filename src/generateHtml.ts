@@ -2,14 +2,16 @@
 import fs from "fs/promises";
 import path from "path";
 import { OUTPUT_HTML_FILENAME, OUTPUT_TREE_FILENAME } from "./constants";
+// import chalk from "chalk";
 
 export const generateHtml = async (outputPath: string) => {
   // e D:\project\frontend-5.0\node_modules\project-maps\dist
+  // console.log("---", __dirname, "--", process.cwd(), "--", __filename);
   const chartJsPath = path.relative(
-    __dirname,
+    process.cwd(),
     __filename.replace(/mapcli\.js/g, "chart.js")
   );
-  console.log("chartJsPath", chartJsPath);
+  // console.log("chartJsPath", chartJsPath);
   const str = `
   <!DOCTYPE html>
   <html lang="en">

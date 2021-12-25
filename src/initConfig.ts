@@ -12,6 +12,7 @@ import {
   UserConfig,
   WINDOW_TREE_KEY,
 } from "./constants";
+// import chalk from "chalk";
 
 export interface TreeDataItem {
   parentName: string;
@@ -98,7 +99,8 @@ const searchPath = async (
   pathName: string,
   userConfig: typeof DEFAULT_CONFIG,
   parentName: string,
-  obj: Record<string, TreeDataItem>
+  obj: Record<string, TreeDataItem>,
+  level: number
 ) => {
   let arr = await fs.readdir(path.resolve(pathName));
   arr = arr.filter((fileName) => !userConfig.exclude.includes(fileName));
@@ -107,8 +109,10 @@ const searchPath = async (
       const fullFileName = path.resolve(pathName, fileName);
       const curRelativePath = path.relative(process.cwd(), fullFileName);
       const curDesc = userConfig.relativepathDesc[curRelativePath]?.desc ?? "";
+      const isLevelCollapsed = level <= 2 ? false : true;
       const curCollapsed =
-        userConfig.relativepathDesc[curRelativePath]?.collapsed ?? "";
+        userConfig.relativepathDesc[curRelativePath]?.collapsed ??
+        isLevelCollapsed;
       const stat = await fs.stat(fullFileName);
       const isDir = stat.isDirectory();
       obj[fileName] = makeTreeDataItem(
@@ -125,7 +129,8 @@ const searchPath = async (
           fullFileName,
           userConfig,
           fileName,
-          obj[fileName].children ?? {}
+          obj[fileName].children ?? {},
+          level + 1
         );
       }
     })
@@ -137,7 +142,7 @@ export const getUserFolderMaps = async (rootPath: string) => {
   const treeObj = {};
   const userConfig = getUserConfig();
   try {
-    await searchPath(rootPath, userConfig, "root", treeObj);
+    await searchPath(rootPath, userConfig, "root", treeObj, 1);
     await fs.writeFile(
       path.resolve(rootPath, OUTPUT_TREE_FILENAME),
       `window.${WINDOW_TREE_KEY} = ` + JSON.stringify(treeObj, null, 2)
