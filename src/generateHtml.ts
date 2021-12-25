@@ -4,7 +4,7 @@ import path from "path";
 import { OUTPUT_HTML_FILENAME, OUTPUT_TREE_FILENAME } from "./constants";
 
 export const generateHtml = async (outputPath: string) => {
-  console.log("hello", __filename, __dirname);
+  // e D:\project\frontend-5.0\node_modules\project-maps\dist
   const chartJsPath = path.relative(
     __dirname,
     __filename.replace(/mapcli\.js/g, "chart.js")

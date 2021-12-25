@@ -89,6 +89,10 @@ console.log("from-chart", "src");
 
 const getSvgUrl = (svgName: string) => {
   // image://./static/icons/
+  const aa = __dirname;
+  const bb = __filename;
+  console.log("aa", aa);
+  console.log("bb", bb);
   return "image://../src/static/icons/" + svgName;
 };
 

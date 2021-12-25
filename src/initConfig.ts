@@ -85,7 +85,7 @@ function makeTreeDataItem(
 const getUserConfig = () => {
   try {
     const userConfig: typeof DEFAULT_CONFIG = require(path.resolve(
-      __dirname,
+      process.cwd(),
       OUTPUT_CONFIG_FILENAME
     ));
     return userConfig;
@@ -105,7 +105,7 @@ const searchPath = async (
   await Promise.all(
     arr.map(async (fileName) => {
       const fullFileName = path.resolve(pathName, fileName);
-      const curRelativePath = path.relative(__dirname, fullFileName);
+      const curRelativePath = path.relative(process.cwd(), fullFileName);
       const curDesc = userConfig.relativepathDesc[curRelativePath]?.desc ?? "";
       const curCollapsed =
         userConfig.relativepathDesc[curRelativePath]?.collapsed ?? "";

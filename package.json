@@ -1,6 +1,6 @@
 {
   "name": "project-maps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "visualize your project",
   "bin": {
     "project-maps": "./bin/project-maps.js"
