@@ -1,8 +1,6 @@
 // controller
 import { cac } from "cac";
-import { generateHtml } from "./generateHtml";
-import { outputDefaultConfig, getUserFolderMaps } from "./initConfig";
-// import path from "path";
+import { outputDefaultConfig, generateHtml } from "./initConfig";
 
 const cli = cac("project-maps");
 
@@ -15,16 +13,7 @@ cli.command("init").action(async () => {
   }
 });
 
-//2. tree
-cli.command("tree").action(async () => {
-  try {
-    await getUserFolderMaps(process.cwd());
-  } catch (error) {
-    process.exit(1);
-  }
-});
-
-// 3. generate html
+// 2. generate html
 cli.command("generate").action(async () => {
   try {
     await generateHtml(process.cwd());
@@ -38,7 +27,6 @@ cli.command("flow").action(async () => {
   const workPath = process.cwd();
   try {
     await outputDefaultConfig(workPath);
-    await getUserFolderMaps(workPath);
     await generateHtml(workPath);
   } catch (error) {
     process.exit(1);

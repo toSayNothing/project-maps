@@ -11,7 +11,6 @@ import {
 } from "vscode-icons-js";
 import { WINDOW_TREE_KEY } from "./constants";
 import { TreeDataItem } from "./initConfig";
-import { resolve } from "path/posix";
 
 export interface ChartDataItem {
   name: string;
@@ -72,7 +71,7 @@ const transformedData: ChartDataItem = {
   name: "root",
   size: "0 B",
   desc: "", // root
-  collapsed: false, // 根目录默认不折叠
+  collapsed: false, // root default collapsed
   children: Object.keys(mapObjSource).map((fileName) => {
     const res = transformToChartDataItem(fileName, mapObjSource[fileName]);
     return res;
@@ -111,54 +110,23 @@ const option: EChartsOption = {
     {
       type: "tree",
       data: [transformedData],
-      left: "5%", // 离左边的距离
-      top: "1%", // 离=上边的距离
-      right: "20%", // 离右边的距离
-      bottom: "1%", // 离底下的距离
-      // symbol: "circle", // 节点 的圆点
-      // symbol: "image://./static/icons/default_file.svg",
-      // symbol 根据文档有这个类型,但是types里没有,所以这里强行as string
-      // (value: Array|number, params: Object) => string
+      left: "5%",
+      top: "1%",
+      right: "20%",
+      bottom: "1%",
       symbol: ((val: number, params: any) => {
-        // console.log(getIconForFile("main.cpp"));
         if (!params.data.name) {
-          // 这种情况只有两个 ,一个是root,一个是root的父
-          // console.log("val", val, params);
-          // return "image://./static/icons/" + "default_file.svg";
           return getSvgUrl("default_file.svg");
         } else if (params.data.children) {
-          // console.log("isFolder", params);
-          // getIconForFolder
-          // getIconForOpenFolder
-          // TODO 展开的情况
-          // console.log(
-          //   "getIconForFolder(params.data.name)",
-          //   getIconForFolder(params.data.name)
-          // );
-          // console.log(
-          //   "params.data.collapsed",
-          //   "image://./static/icons/" + params.data.collapsed
-          //     ? getIconForFolder(params.data.name)
-          //     : getIconForOpenFolder(params.data.name)
-          // );
-          // const folderSvg = params.data.collapsed
-          //   ? getIconForFolder(params.data.name)
-          //   : getIconForOpenFolder(params.data.name);
-          // const folderSvg = getIconForFolder(params.data.name);
-          // return "image://./static/icons/" + "default_folder.svg";
           return getSvgUrl("default_folder.svg");
         } else {
-          // return "image://./static/icons/" + getIconForFile(params.data.name);
           return getSvgUrl(getIconForFile(params.data.name) ?? "");
         }
-        // file_type_cpp.svg
-        // params.data.name
-        // return "image://./static/icons/default_file.svg";
       }) as unknown as string,
-      symbolSize: 12, // 节点的圆点的大小
-      edgeShape: "curve", // curve polyline 折线类型是圆滑的还是方正的
-      roam: true, // 是否开启鼠标缩放和平移,scale/move,true为都开启
-      initialTreeDepth: 2, // 默认展开多少层
+      symbolSize: 12,
+      edgeShape: "curve",
+      roam: true,
+      initialTreeDepth: 2,
       height: "100%",
       label: {
         fontStyle: "normal",
@@ -167,7 +135,6 @@ const option: EChartsOption = {
         align: "right",
         fontSize: 12,
         formatter: (obj: any) => {
-          // console.log(obj);
           if (obj.data.desc) {
             return `{a|${obj.name}} 
             {b|${obj.data.desc}}`;
@@ -193,7 +160,6 @@ const option: EChartsOption = {
           verticalAlign: "middle",
           align: "left",
           formatter: (obj: any) => {
-            // console.log(obj);
             if (obj.data.desc) {
               return `{a|${obj.name}}  {b|${obj.data.desc}}`;
             } else {
@@ -203,7 +169,6 @@ const option: EChartsOption = {
         },
       },
       lineStyle: {
-        // color: "blue",
         width: 1,
         curveness: 0.5,
       },
